@@ -8,16 +8,16 @@ spec:
   # - name: host
   metrics:
   - name: canary-check
-    # successCondition: result <= 0.05
-    # interval: 30s
-    # initialDelay: 30s
+    successCondition: result <= 0.05
+    interval: 30s
+    initialDelay: 30s
     # failureLimit: 1
     # interval: 5
     # successCondition: result == "ok"
     provider:
       web:
         # paceholders are resolved when an AnalysisRun is created
-        url: "http://{{args.host}}/"
+        url: "http://34.100.160.206/"
         timeoutSeconds: 20
         jsonPath: "{$.status}"
 
