@@ -17,21 +17,6 @@ spec:
         url: "http://34.93.20.246:80/"
         jsonPath: "{$.status}"
 ################
-# apiVersion: argoproj.io/v1alpha1
-# kind: AnalysisTemplate
-# metadata:
-#   name: canary-check
-# spec:
-#   args:
-#   - name: application-name
-#   metrics:
-#   - name: canary-check
-#     successCondition: result.successRate >= 0.95
-#     provider:
-#       newRelic:
-#         profile: my-newrelic-secret  # optional, defaults to 'newrelic'
-#         query: |
-#           FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = '{{ args.application-name }}'
 ###############################################################
 # apiVersion: argoproj.io/v1alpha1
 # kind: AnalysisTemplate
@@ -57,24 +42,24 @@ spec:
 #         jsonPath: "{$.status}"
 
 #####################################
-# kind: AnalysisTemplate
-# apiVersion: argoproj.io/v1alpha1
-# metadata:
-#   name: canary-check
-# spec:
-#   metrics:
-#   - name: test
-#     provider:
-#       job:
-#         spec:
-#           backoffLimit: 1
-#           template:
-#             spec:
-#               containers:
-#               - name: busybox
-#                 image: busybox
-#                 #args: [test]  #--> for making analysis fail, uncomment
-#               restartPolicy: Never
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: canary-check
+spec:
+  metrics:
+  - name: test
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - name: busybox
+                image: busybox
+                #args: [test]  #--> for making analysis fail, uncomment
+              restartPolicy: Never
 
 
 ##########################################
