@@ -12,9 +12,9 @@ spec:
       - analysis:
           templates:
           - templateName: canary-check
-      - env:
-        - name: host
-          value: rollouts-demo
+      # - env:
+      #   - name: host
+      #     value: rollouts-demo
       - setWeight: 40
       - pause: {duration: 10}
       - setWeight: 60
