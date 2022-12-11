@@ -11,7 +11,10 @@ spec:
       - pause: {duration: 10}
       - analysis:
           templates:
-          - templateName: webcheck
+          - templateName: canary-check
+      - args:
+        - name: host
+          value: colorapi
       - setWeight: 40
       - pause: {duration: 10}
       - setWeight: 60

@@ -1,24 +1,48 @@
-apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
 metadata:
-  name: webcheck
+  name: canary-check
 spec:
-  args:
-  - name: host
   metrics:
-  - name: webcheck
-    successCondition: result <= 0.05
-    interval: 30s
-    initialDelay: 30s
-    # failureLimit: 1
-    # interval: 5
-    # successCondition: result == "ok"
+  - name: test
     provider:
-      web:
-        # paceholders are resolved when an AnalysisRun is created
-        url: "http://{{args.host}}/"
-        timeoutSeconds: 20
-        jsonPath: "{$.status}"
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - name: busybox
+                image: busybox
+                #args: [test]  #--> for making analysis fail, uncomment
+              restartPolicy: Never
+
+
+##########################################
+# apiVersion: argoproj.io/v1alpha1
+# kind: AnalysisTemplate
+# metadata:
+#   name: canary-check
+# spec:
+#   args:
+#   - name: host
+#   metrics:
+#   - name: canary-check
+#     successCondition: result <= 0.05
+#     interval: 30s
+#     initialDelay: 30s
+#     # failureLimit: 1
+#     # interval: 5
+#     # successCondition: result == "ok"
+#     provider:
+#       web:
+#         # paceholders are resolved when an AnalysisRun is created
+#         url: "http://{{args.host}}/"
+#         timeoutSeconds: 20
+#         jsonPath: "{$.status}"
+
+#########################################
+
 # kind: AnalysisTemplate
 # apiVersion: argoproj.io/v1alpha1
 # metadata:
