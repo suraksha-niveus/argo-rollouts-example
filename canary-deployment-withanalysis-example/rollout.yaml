@@ -32,10 +32,11 @@ spec:
     spec:
       containers:
       - name: rollouts-demo
-        image: argoproj/rollouts-demo:red
+        # image: argoproj/rollouts-demo:red
+        image: particule/simplecolorapi:1.0
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 5000
           protocol: TCP
         resources:
           requests:
