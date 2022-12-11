@@ -17,7 +17,7 @@ spec:
     provider:
       web:
         # paceholders are resolved when an AnalysisRun is created
-        url: "http://34.100.160.206/"
+        url: "http://34.93.209.167:80/"
         timeoutSeconds: 20
         jsonPath: "{$.status}"
 
