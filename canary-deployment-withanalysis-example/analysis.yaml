@@ -14,7 +14,7 @@ spec:
       web:
         # paceholders are resolved when an AnalysisRun is created
         # url: "http://{{args.host}}/"
-        url: "http://34.93.20.246:80/"
+        url: "http://34.100.142.44/"
         jsonPath: "{$.status}"
 ################
 ###############################################################
@@ -36,7 +36,7 @@ spec:
 #     provider:
 #       web:
 #         # paceholders are resolved when an AnalysisRun is created
-#         url: "http://34.93.20.246:80/"
+#         url: "http://34.100.142.44:8080/"
 #         # url: "http://{{env.host}}/"
 #         timeoutSeconds: 20
 #         jsonPath: "{$.status}"
