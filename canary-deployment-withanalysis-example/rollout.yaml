@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: colorapi
-        image: particule/simplecolorapi:1.0
+        image: argoproj/rollouts-demo:blue
         ports:
         - name: http
           containerPort: 8080
