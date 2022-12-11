@@ -36,7 +36,7 @@ spec:
         image: particule/simplecolorapi:1.0
         ports:
         - name: http
-          containerPort: 5000
+          containerPort: 8080
           protocol: TCP
         resources:
           requests:
