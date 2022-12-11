@@ -1,17 +1,33 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: rollout-ingress
+  # namespace: demo-concourse-flux
+  name: colorapi
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - http:
+  - host: demo-concourse-flux.particule.io
+    http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: rollouts-demo
-            port:
-              number: 80
+      - backend:
+          serviceName: colorapi
+          servicePort: 80
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: rollout-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: rollouts-demo
+#             port:
+#               number: 80
