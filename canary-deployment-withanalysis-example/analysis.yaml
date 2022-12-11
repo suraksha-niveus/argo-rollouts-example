@@ -11,9 +11,9 @@ spec:
     # successCondition: result <= 0.05
     # interval: 30s
     # initialDelay: 30s
-    failureLimit: 1
-    interval: 5
-    successCondition: result == "ok"
+    # failureLimit: 1
+    # interval: 5
+    # successCondition: result == "ok"
     provider:
       web:
         # paceholders are resolved when an AnalysisRun is created
