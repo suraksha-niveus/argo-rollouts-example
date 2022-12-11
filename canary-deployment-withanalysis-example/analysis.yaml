@@ -3,17 +3,21 @@ kind: AnalysisTemplate
 metadata:
   name: webcheck
 spec:
-  # args:
-  # - name: host
+  args:
+  - name: host
   metrics:
   - name: webcheck
-    failureLimit: 1
-    interval: 5
-    successCondition: result == "ok"
+    successCondition: result <= 0.05
+    interval: 30s
+    initialDelay: 30s
+    # failureLimit: 1
+    # interval: 5
+    # successCondition: result == "ok"
     provider:
       web:
         # paceholders are resolved when an AnalysisRun is created
         url: "http://{{args.host}}/"
+        timeoutSeconds: 20
         jsonPath: "{$.status}"
 # kind: AnalysisTemplate
 # apiVersion: argoproj.io/v1alpha1
