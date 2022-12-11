@@ -14,48 +14,48 @@
 #         query: |
 #           FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = '{{ args.application-name }}'
 ###############################################################
-apiVersion: argoproj.io/v1alpha1
-kind: AnalysisTemplate
-metadata:
-  name: canary-check
-spec:
-  # env:
-  # - name: host
-  metrics:
-  - name: canary-check
-    # successCondition: result <= 0.05
-    # interval: 30s
-    # initialDelay: 30s
-    failureLimit: 1
-    interval: 5
-    successCondition: result == "ok"
-    provider:
-      web:
-        # paceholders are resolved when an AnalysisRun is created
-        url: "http://34.100.160.206:80/"
-        # url: "http://{{env.host}}/"
-        timeoutSeconds: 20
-        jsonPath: "{$.status}"
-
-#####################################
-# kind: AnalysisTemplate
 # apiVersion: argoproj.io/v1alpha1
+# kind: AnalysisTemplate
 # metadata:
 #   name: canary-check
 # spec:
+#   # env:
+#   # - name: host
 #   metrics:
-#   - name: test
+#   - name: canary-check
+#     # successCondition: result <= 0.05
+#     # interval: 30s
+#     # initialDelay: 30s
+#     failureLimit: 1
+#     interval: 5
+#     successCondition: result == "ok"
 #     provider:
-#       job:
-#         spec:
-#           backoffLimit: 1
-#           template:
-#             spec:
-#               containers:
-#               - name: busybox
-#                 image: busybox
-#                 #args: [test]  #--> for making analysis fail, uncomment
-#               restartPolicy: Never
+#       web:
+#         # paceholders are resolved when an AnalysisRun is created
+#         url: "http://34.100.160.206:80/"
+#         # url: "http://{{env.host}}/"
+#         timeoutSeconds: 20
+#         jsonPath: "{$.status}"
+
+#####################################
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: canary-check
+spec:
+  metrics:
+  - name: test
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - name: busybox
+                image: busybox
+                #args: [test]  #--> for making analysis fail, uncomment
+              restartPolicy: Never
 
 
 ##########################################
