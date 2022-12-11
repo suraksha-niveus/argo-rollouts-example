@@ -12,9 +12,9 @@ spec:
       - analysis:
           templates:
           - templateName: canary-check
-      # - args:
-      #   - name: host
-      #     value: rollouts-demo
+      - args:
+        - name: host
+          value: rollouts-demo
       - setWeight: 40
       - pause: {duration: 10}
       - setWeight: 60
@@ -33,7 +33,7 @@ spec:
       containers:
       - name: rollouts-demo
         # image: argoproj/rollouts-demo:red
-        image: particule/simplecolorapi:4.0
+        image: particule/simplecolorapi:2.0
         ports:
         - name: http
           containerPort: 5000
