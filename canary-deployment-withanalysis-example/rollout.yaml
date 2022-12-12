@@ -24,19 +24,6 @@ spec:
       - pause: {duration: 10}
       - setWeight: 80
       - pause: {duration: 10}
-        # - analysis:
-      #     templates:
-      #     - templateName: webcheck
-      #     args:
-      #     - name host
-      #       value: colorapi
-      # steps:
-      # - setWeight: 20
-      # - pause:
-      #     duration: "30s"
-      # - setWeight: 50
-      # - pause:
-      #     duration: "30s"
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -49,7 +36,7 @@ spec:
       containers:
       - name: rollouts-demo
         # image: argoproj/rollouts-demo:black
-        image: particule/simplecolorapi:2.0
+        image: particule/simplecolorapi:3.0
         ports:
         - name: http
           containerPort: 5000
@@ -58,6 +45,7 @@ spec:
           requests:
             memory: 32Mi
             cpu: 5m
+
 
 # apiVersion: argoproj.io/v1alpha1
 # kind: Rollout
