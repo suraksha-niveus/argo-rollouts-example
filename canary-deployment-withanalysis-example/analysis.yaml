@@ -1,21 +1,34 @@
-apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
 metadata:
-  name: canary-check
+  name: canarycheck
 spec:
-  args:
-  - name: host
   metrics:
-  - name: canary-check
-    failureLimit: 1
-    interval: 1
-    successCondition: result == "ok"
+  - name: success-rate
+    successCondition: result.successRate >= 0.95
     provider:
-      web:
-        # paceholders are resolved when an AnalysisRun is created
-        url: "http://{{args.host}}/"
-        # url: "http://34.100.195.123"
-        jsonPath: "{$.status}"
+      newRelic:
+        profile: argo-rollouts-newrelic-nonprod-credentials
+        query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = "http://34.93.157.58:5000/"
+############################################
+# apiVersion: argoproj.io/v1alpha1
+# kind: AnalysisTemplate
+# metadata:
+#   name: canary-check
+# spec:
+#   args:
+#   - name: host
+#   metrics:
+#   - name: canary-check
+#     failureLimit: 1
+#     interval: 1
+#     successCondition: result == "ok"
+#     provider:
+#       web:
+#         # paceholders are resolved when an AnalysisRun is created
+#         url: "http://{{args.host}}/"
+#         # url: "http://34.100.195.123"
+#         jsonPath: "{$.status}"
 ################
 ###############################################################
 # apiVersion: argoproj.io/v1alpha1
