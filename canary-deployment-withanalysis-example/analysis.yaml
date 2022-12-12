@@ -1,15 +1,15 @@
-kind: AnalysisTemplate
-apiVersion: argoproj.io/v1alpha1
-metadata:
-  name: canary-check
-spec:
-  metrics:
-  - name: success-rate
-    successCondition: result.successRate >= 0.95
-    provider:
-      newRelic:
-        profile: argo-rollouts-newrelic-nonprod-credentials
-        query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = "http://35.244.23.154:5000/"
+# kind: AnalysisTemplate
+# apiVersion: argoproj.io/v1alpha1
+# metadata:
+#   name: canary-check
+# spec:
+#   metrics:
+#   - name: success-rate
+#     successCondition: result.successRate >= 0.95
+#     provider:
+#       newRelic:
+#         profile: argo-rollouts-newrelic-nonprod-credentials
+#         query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = "http://35.244.23.154:5000/"
 ############################################
 # apiVersion: argoproj.io/v1alpha1
 # kind: AnalysisTemplate
@@ -55,24 +55,24 @@ spec:
 #         jsonPath: "{$.status}"
 
 #####################################
-# kind: AnalysisTemplate
-# apiVersion: argoproj.io/v1alpha1
-# metadata:
-#   name: canary-check
-# spec:
-#   metrics:
-#   - name: test
-#     provider:
-#       job:
-#         spec:
-#           backoffLimit: 1
-#           template:
-#             spec:
-#               containers:
-#               - name: busybox
-#                 image: busybox
-#                 #args: [test]  #--> for making analysis fail, uncomment
-#               restartPolicy: Never
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: canary-check
+spec:
+  metrics:
+  - name: test
+    provider:
+      job:
+        spec:
+          backoffLimit: 1
+          template:
+            spec:
+              containers:
+              - name: busybox
+                image: busybox
+                #args: [test]  #--> for making analysis fail, uncomment
+              restartPolicy: Never
 
 
 ##########################################
