@@ -1,21 +1,3 @@
-apiVersion: argoproj.io/v1alpha1
-kind: AnalysisTemplate
-metadata:
-  name: canary-check
-spec:
-  args:
-  - name: host
-  metrics:
-  - name: canary-check
-    successCondition: result <= 0.05
-    interval: 30s
-    initialDelay: 30s
-    provider:
-      web:
-        url: "http://{{args.host}}/"
-        timeoutSeconds: 20
-        jsonPath: "{$.error_rate}"
-########################
 # apiVersion: argoproj.io/v1alpha1
 # kind: AnalysisTemplate
 # metadata:
@@ -25,15 +7,33 @@ spec:
 #   - name: host
 #   metrics:
 #   - name: canary-check
-#     failureLimit: 1
-#     interval: 1
-#     successCondition: result == "ok"
+#     successCondition: result <= 0.05
+#     interval: 30s
+#     initialDelay: 30s
 #     provider:
 #       web:
-#         # paceholders are resolved when an AnalysisRun is created
 #         url: "http://{{args.host}}/"
-#         # url: "http://34.100.195.123"
-#         jsonPath: "{$.status}"
+#         timeoutSeconds: 20
+#         jsonPath: "{$.error_rate}"
+########################
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: canary-check
+spec:
+  args:
+  - name: host
+  metrics:
+  - name: canary-check
+    failureLimit: 1
+    interval: 1
+    successCondition: result == "ok"
+    provider:
+      web:
+        # paceholders are resolved when an AnalysisRun is created
+        url: "http://{{args.host}}/"
+        # url: "http://34.100.195.123"
+        jsonPath: "{$.status}"
 ################
 ###############################################################
 # apiVersion: argoproj.io/v1alpha1
