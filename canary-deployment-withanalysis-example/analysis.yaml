@@ -1,21 +1,3 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: AnalysisTemplate
-# metadata:
-#   name: canary-check
-# spec:
-#   args:
-#   - name: host
-#   metrics:
-#   - name: canary-check
-#     successCondition: result <= 0.05
-#     interval: 30s
-#     initialDelay: 30s
-#     provider:
-#       web:
-#         url: "http://{{args.host}}/"
-#         timeoutSeconds: 20
-#         jsonPath: "{$.error_rate}"
-########################
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
