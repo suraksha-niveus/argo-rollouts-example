@@ -11,7 +11,7 @@ spec:
     provider:
       newRelic:
         profile: argo-rollouts-newrelic-nonprod-credentials
-        query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = '{{ args.application-name }}'
+        query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = '{{ args.host }}'
 
 ########################
 # apiVersion: argoproj.io/v1alpha1
