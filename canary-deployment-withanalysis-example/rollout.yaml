@@ -6,24 +6,38 @@ spec:
   replicas: 5
   strategy:
     canary:
-      steps:
-      - setWeight: 20
-      - pause: {duration: 50}
       - analysis:
           templates:
-          - templateName: canary-check
-      # - args:
-      #   - name: host
-      #     value: rollouts-demo
+          - templateName: webcheck
           args:
-          - name: host
-            value: rollouts-demo
-      - setWeight: 40
-      - pause: {duration: 10}
-      - setWeight: 60
-      - pause: {duration: 10}
-      - setWeight: 80
-      - pause: {duration: 10}
+          - name host
+            value: colorapi
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: "30s"
+      - setWeight: 50
+      - pause:
+          duration: "30s"
+
+      # steps:
+      # - setWeight: 20
+      # - pause: {duration: 50}
+      # - analysis:
+      #     templates:
+      #     - templateName: canary-check
+      # # - args:
+      # #   - name: host
+      # #     value: rollouts-demo
+      #     args:
+      #     - name: host
+      #       value: rollouts-demo
+      # - setWeight: 40
+      # - pause: {duration: 10}
+      # - setWeight: 60
+      # - pause: {duration: 10}
+      # - setWeight: 80
+      # - pause: {duration: 10}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
