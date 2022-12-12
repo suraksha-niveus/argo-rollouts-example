@@ -7,12 +7,14 @@ spec:
   - name: host
   metrics:
   - name: canary-check
-    successCondition: result.successRate >= 0.95
+    successCondition: result <= 0.05
+    interval: 30s
+    initialDelay: 30s
     provider:
-      newRelic:
-        profile: argo-rollouts-newrelic-nonprod-credentials
-        query: FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode != 500) as successRate where appName = '{{ args.host }}'
-
+      web:
+        url: "http://{{args.host}}/"
+        timeoutSeconds: 20
+        jsonPath: "{$.error_rate}"
 ########################
 # apiVersion: argoproj.io/v1alpha1
 # kind: AnalysisTemplate
